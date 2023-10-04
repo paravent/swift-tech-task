@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RomanNumeral;
 use Illuminate\Http\Request;
 use App\Models\Numbers;
+use Illuminate\Support\Facades\DB;
 
 
 class RomanNumeralController extends Controller
@@ -18,12 +19,21 @@ class RomanNumeralController extends Controller
         }
 
         $romanNumeral = $this->numberToRoman($number);
+
+        //db support for extra features, dont add if we already have it
+        if(DB::table('numbers')->where('value', $number)->first()){
+            return redirect()->route('numbers.index')->with('romanNumeral', $romanNumeral);
+        }
+
         if($romanNumeral){
-            $number = new Numbers;
-            $number->value = $number; 
-            $number->save(); 
+            $newNumber = new Numbers;
+            $newNumber->value = $number; 
+            $newNumber->save(); 
 
-
+            $roman = new RomanNumeral; 
+            $roman->number_id = $newNumber->id;
+            $roman->value = $romanNumeral;
+            $roman->save();
         }
         return redirect()->route('numbers.index')->with('romanNumeral', $romanNumeral);
     }
@@ -37,6 +47,22 @@ class RomanNumeralController extends Controller
         }
 
         $integerValue = $this->romanToNumber($roman);
+        //db support for extra features, dont add if we already have it
+
+        if(DB::table('roman_numerals')->where('value', $roman)->first()){
+            return redirect()->route('numbers.index')->with('integerValue', $integerValue);
+        }
+
+        if($integerValue){
+            $newNumber = new Numbers;
+            $newNumber->value = $integerValue; 
+            $newNumber->save(); 
+
+            $newroman = new RomanNumeral; 
+            $newroman->number_id = $newNumber->id;
+            $newroman->value = $roman;
+            $newroman->save();
+        }
         return redirect()->route('numbers.index')->with('integerValue', $integerValue);
     }
     public static function numberToRoman($num) {

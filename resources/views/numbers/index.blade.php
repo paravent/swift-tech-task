@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5">
+    {{-- <div class="container mt-5">
         <h1>Latest Conversions</h1>
         
         @if(session('success'))
@@ -76,7 +76,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </div> --}}
 
 
 @endsection

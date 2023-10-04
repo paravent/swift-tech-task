@@ -9,6 +9,7 @@ class RomanNumeral extends Model
 {
     use HasFactory;
 
+    //one to one
     public function number() {
         return $this->belongsTo(Numbers::class);
     }
