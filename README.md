@@ -3,7 +3,7 @@
 ## Install tutorial
 
 ## Step 1:
-    git pull repo, cd into containing folder
+    git clone repo, cd into containing folder
 
 ## Step 2:
     Ensure that you copy and paste the contents of `.env.example` into `.env`
