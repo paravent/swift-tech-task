@@ -6,6 +6,9 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <h2 class="text-center mb-4">Convert to Roman Numerals</h2>
+                @if(Session::has('error')))
+                <div class="alert alert-error">{{ Session::get('error')}}</div>
+             @endif
                 <form action="{{ route('convertToRoman') }}" method="POST">
                     @csrf
                     <div class="mb-3">
@@ -22,7 +25,11 @@
                 @endif
             </div>
              <div class="col-md-6">
+            
                 <h2 class="text-center mb-4">Convert From Roman Numerals</h2>
+                 @if(Session::has('error')))
+                <div class="alert alert-error">{{ Session::get('error')}}</div>
+             @endif
                 <form action="{{ route('convertFromRoman') }}" method="POST">
                     @csrf
                     <div class="mb-3">
